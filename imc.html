@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #cceeff; 
+        }
+
+        header {
+            background-color: #007bff;
+            padding: 20px 0;
+            text-align: center;
+            color: #fff;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-bar {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-bar span {
+            font-size: 24px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container div {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .container label {
+            margin-right: 10px;
+            flex: 1;
+        }
+
+        .container input {
+            flex: 2;
+            padding: 10px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #table-container {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #fff;
+            margin: 0 5px;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="search-bar">
+            <span style="font-size: 24px;">Saúde em Dia</span> 
+        </div>
+    </header>
+    <div class="container">
+        <h1>Calculadora de IMC</h1>
+        <div>
+            <label for="weight">Peso (kg):</label>
+            <input type="number" id="weight" placeholder="Digite seu peso em kg">
+        </div>
+        <div>
+            <label for="height">Altura (cm):</label>
+            <input type="number" id="height" placeholder="Digite sua altura em cm">
+        </div>
+        <button onclick="calculateBMI()">Calcular IMC</button>
+        <div id="result"></div>
+        <div id="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>IMC</th>
+                        <th>Classificação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>&lt; 18.5</td>
+                        <td>Abaixo do peso</td>
+                    </tr>
+                    <tr>
+                        <td>18.5 - 24.9</td>
+                        <td>Peso normal</td>
+                    </tr>
+                    <tr>
+                        <td>25 - 29.9</td>
+                        <td>Sobrepeso</td>
+                    </tr>
+                    <tr>
+                        <td>30 - 34.9</td>
+                        <td>Obesidade I</td>
+                    </tr>
+                    <tr>
+                        <td>35 - 39.9</td>
+                        <td>Obesidade II</td>
+                    </tr>
+                    <tr>
+                        <td>&ge; 40</td>
+                        <td>Obesidade III (Mórbida)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer>
+        <a href="https://www.linkedin.com/in/raphael-lupo-leal-137b41231" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a> 
+    </footer>
+
+    <script>
+       
+       function calculateBMI() {
+    var weight = document.getElementById("weight").value;
+    var height = document.getElementById("height").value;
+
+    
+    weight = weight.replace(",", ".");
+    height = height.replace(",", ".");
+
+    if (weight === "" || height === "") {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
+    var bmi = weight / ((height / 100) * (height / 100));
+    var result = "";
+
+    if (bmi < 18.5) {
+        result = "Abaixo do peso";
+    } else if (bmi >= 18.5 && bmi < 25) {
+        result = "Peso normal";
+    } else if (bmi >= 25 && bmi < 30) {
+        result = "Sobrepeso";
+    } else if (bmi >= 30 && bmi < 35) {
+        result = "Obesidade I";
+    } else if (bmi >= 35 && bmi < 40) {
+        result = "Obesidade II";
+    } else {
+        result = "Obesidade III (Mórbida)";
+    }
+
+    document.getElementById("result").innerHTML = "Seu IMC é: " + bmi.toFixed(2) + " - " + result;
+}
+
+
+    </script>
+</body>
+</html>
